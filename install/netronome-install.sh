@@ -23,12 +23,9 @@ $STD apt-get install -y \
   tar
 msg_ok "Installed Dependencies"
 
-msg_info "Setup ${APPLICATION}"
-RELEASE=$(curl -fsSL https://api.github.com/repos/autobrr/netronome/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')
-curl -fsSL -o "${RELEASE}.tar.gz" $(curl -s https://api.github.com/repos/autobrr/netronome/releases/${RELEASE} | grep download | grep linux_x86_64 | cut -d\" -f4)
-tar -C /opt/"${APPLICATION}" -xzf "${RELEASE}.tar.gz"
-echo "${RELEASE}" >/opt/"${APPLICATION}"_version.txt
-msg_ok "Setup ${APPLICATION}"
+fetch_and_deploy_gh_release "netronome" "autobrr/netronome" "tarball"
+
+msg_ok "Installed ${APPLICATION}"
 
 msg_info "Creating Service"
 cat <<EOF >/etc/systemd/system/netronome.service
@@ -38,7 +35,8 @@ Description=netronome
 [Service]
 Type=simple
 User=root
-ExecStart=/opt/"${APPLICATION}" serve --config=/opt/"${APPLICATION}"/config.toml
+WorkingDirectory=/opt/"${APPLICATION}"
+ExecStart=/opt/"${APPLICATION}" serve --config=config.toml
 Restart=always
 
 [Install]
