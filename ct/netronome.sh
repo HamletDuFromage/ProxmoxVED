@@ -39,7 +39,7 @@ function update_script() {
     msg_ok "Stopped Service"
 
     msg_info "Updating $APP to v${RELEASE}"
-    /opt/netronome/netronome update
+    netronome update
     msg_ok "Updated $APP to v${RELEASE}"
 
     msg_info "Starting $APP"
