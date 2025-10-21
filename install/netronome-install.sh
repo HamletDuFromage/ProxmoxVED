@@ -21,7 +21,6 @@ msg_info "Installing Dependencies"
 $STD apt-get install -y \
   curl \
   tar
-setup_yq
 msg_ok "Installed Dependencies"
 
 fetch_and_deploy_gh_release "netronome" "autobrr/netronome" "binary" "latest" "/opt/netronome"
