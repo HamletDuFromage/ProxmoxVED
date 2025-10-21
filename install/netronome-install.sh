@@ -23,7 +23,7 @@ $STD apt-get install -y \
   tar
 msg_ok "Installed Dependencies"
 
-fetch_and_deploy_gh_release "netronome" "autobrr/netronome" "tarball"
+fetch_and_deploy_gh_release "netronome" "autobrr/netronome" "binary"
 
 msg_ok "Installed ${APPLICATION}"
 
