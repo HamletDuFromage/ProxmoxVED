@@ -30,9 +30,6 @@ function update_script() {
     exit
   fi
 
-  RELEASE=$(curl -fsSL https://api.github.com/repos/autobrr/netronome/releases/latest | grep tag_name | cut -d\" -f4 | tr -d 'v')
-  CURRENT=$(netronome version 2>/dev/null | grep -Eo 'v?[0-9]+\.[0-9]+\.[0-9]+' | tr -d 'v')
-
   if check_for_gh_release "netronome" "autobrr/netronome"; then
     msg_info "Stopping Service"
     systemctl stop netronome
